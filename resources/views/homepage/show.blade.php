@@ -13,24 +13,17 @@
             <th scope="col">#</th>
             <th scope="col">Name</th>
             <th scope="col">Email</th>
-            <th scope="col">Actions</th>
         </tr>
         </thead>
         <tbody>
-        @foreach($users as $user)
             <tr>
                 <th scope="row">{{$user->id}}</th>
                 <td>{{$user->name}}</td>
                 <td>{{$user->email}}</td>
-                <td>
-                    <a type="button" class="btn btn-primary" href="{{route('show', $user->id)}}">상세</a>
-                    <a type="button" class="btn btn-primary" href="{{route('edit', $user->id)}}">수정</a>
-                    <a type="button" class="btn btn-primary">삭제</a>
-                </td>
             </tr>
-        @endforeach
         </tbody>
     </table>
-    <a type="button" class="btn btn-primary" href="{{route('create')}}">신규추가</a>
+        <a type="button" class="btn btn-primary" href="{{route('home')}}">돌아가기</a>
+        <a type="button" class="btn btn-primary" href="{{route('edit', $user->id)}}">수정</a>
     </body>
 </html>

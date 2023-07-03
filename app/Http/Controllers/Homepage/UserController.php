@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Homepage;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -12,7 +14,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('homepage.index');
+        $users = DB::table('users')->get();
+        return view('homepage.index', ['users'=>$users]);
     }
 
     /**
@@ -20,7 +23,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('homepage.create');
     }
 
     /**
@@ -28,7 +31,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|max:255|email'
+        ]);
+        $user = $request->all();
+
+
+
+        return redirect()->route('home');
     }
 
     /**
@@ -36,7 +47,9 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $user = DB::table('users')->where('id',$id)->first();
+
+        return view('homepage.show', ['user'=>$user]);
     }
 
     /**
@@ -44,7 +57,9 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = DB::table('users')->where('id',$id)->first();
+
+        return view('homepage.edit', ['user'=>$user]);
     }
 
     /**
