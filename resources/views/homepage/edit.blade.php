@@ -7,24 +7,26 @@
         @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     </head>
     <body>
+    @if(isset($error) && $error->any())
+        <div>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <form action="{{route('store', ['id'=>$user->id])}}" method="post">
         @csrf
-        <input type="text" value="{{$user->name}}" name="name" placeholder="name">
-        <input type="text" value="{{$user->email}}" name="email" placeholder="email">
+        <label>
+            <input type="text" value="{{$user->name}}" name="name" placeholder="name">
+        </label>
+        <label>
+            <input type="text" value="{{$user->email}}" name="email" placeholder="email">
+        </label>
         <input type="submit" class="btn btn-primary">
-        @if($error->any())
-            <div>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-    </form>
-    <div>
 
-    </div>
+    </form>
     <a type="button" class="btn btn-primary" href="{{route('home')}}">돌아가기</a>
     </body>
 </html>
