@@ -25,7 +25,11 @@
                 <td>
                     <a type="button" class="btn btn-primary" href="{{route('show', $user->id)}}">상세</a>
                     <a type="button" class="btn btn-primary" href="{{route('edit', $user->id)}}">수정</a>
-                    <a type="button" class="btn btn-primary">삭제</a>
+                    @if($user->trashed())
+                        <a type="button" class="btn btn-primary" href="{{route('restore', $user->id)}}">복원</a>
+                    @else
+                        <a type="button" class="btn btn-primary" href="{{route('delete', $user->id)}}">삭제</a>
+                    @endif
                 </td>
             </tr>
         @endforeach

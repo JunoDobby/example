@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Homepage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest\StoreRequest;
 use App\Http\Requests\UserRequest\UpdateRequest;
+use App\Models\User;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = DB::table('users')->get();
+        $users = User::withTrashed()->get();
         return view('homepage.index', ['users'=>$users]);
     }
 
@@ -35,7 +36,7 @@ class UserController extends Controller
     {
         $user = $request->all();
 
-        DB::table('users')->insert([
+       User::insert([
             'name' => $user['name'],
             'email' => $user['email'],
             'password' => $user['password'],
@@ -51,7 +52,7 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        $user = DB::table('users')->where('id',$id)->first();
+        $user = User::where('id',$id)->first();
 
         return view('homepage.show', ['user'=>$user]);
     }
@@ -61,7 +62,7 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        $user = DB::table('users')->where('id',$id)->first();
+        $user = User::where('id',$id)->first();
 
         return view('homepage.edit', ['user'=>$user]);
     }
@@ -87,6 +88,26 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+
+    }
+
+    /**
+     * restore the specified resource from storage.
+     */
+    public function delete(string $id)
+    {
+        User::find($id)->delete();
+
+        return redirect()->route('home');
+    }
+
+    /**
+     * restore the specified resource from storage.
+     */
+    public function restore(string $id)
+    {
+        User::onlyTrashed()->find($id)->restore();
+
+        return redirect()->route('home');
     }
 }
