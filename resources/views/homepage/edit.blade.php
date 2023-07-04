@@ -16,7 +16,7 @@
             </ul>
         @endif
     @endif
-    <form action="{{route('store', ['id'=>$user->id])}}" method="post">
+    <form action="{{route('update', ['id'=>$user->id])}}" method="post">
         @csrf
         <label>
             <input type="text" value="{{$user->name}}" name="name" placeholder="name">
@@ -25,7 +25,6 @@
             <input type="text" value="{{$user->email}}" name="email" placeholder="email">
         </label>
         <input type="submit" class="btn btn-primary">
-
     </form>
     <a type="button" class="btn btn-primary" href="{{route('home')}}">돌아가기</a>
     </body>
