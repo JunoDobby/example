@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 
 class UserRequest extends FormRequest
 {
@@ -11,7 +14,7 @@ class UserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,5 +28,16 @@ class UserRequest extends FormRequest
             'name' => 'required|max:255',
             'email' => 'required|max:255|email'
         ];
+    }
+
+    /**
+     * @param Validator $validator
+     * @return void
+     * @throws ValidationException
+     */
+    protected function failedValidation(Validator $validator)
+    {
+        $error = $validator->errors()->toArray();
+        throw ValidationException::withMessages($error);
     }
 }

@@ -7,14 +7,14 @@
         @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     </head>
     <body>
-    @if(isset($error) && $error->any())
-        <div>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
+    @if(!empty($errors))
+        @if($errors->any())
+            <ul class="alert alert-danger" style="list-style-type: none">
+                @foreach($errors->all() as $error)
+                    <li>{!! $error !!}</li>
                 @endforeach
             </ul>
-        </div>
+        @endif
     @endif
     <form action="{{route('store', ['id'=>$user->id])}}" method="post">
         @csrf

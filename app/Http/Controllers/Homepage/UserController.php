@@ -32,6 +32,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
+        Log::debug("test");
         $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|max:255|email'
