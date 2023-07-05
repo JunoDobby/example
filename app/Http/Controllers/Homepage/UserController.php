@@ -20,7 +20,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::withTrashed()->get();
-        return view('homepage.index', ['users'=>$users]);
+        return view('homepage.index', ['users' => $users]);
     }
 
     /**
@@ -41,7 +41,7 @@ class UserController extends Controller
     {
         $user = $request->all();
 
-       User::insert([
+        User::insert([
             'name' => $user['name'],
             'email' => $user['email'],
             'password' => $user['password'],
@@ -60,9 +60,9 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        $user = User::where('id',$id)->first();
+        $user = User::where('id', $id)->first();
 
-        return view('homepage.show', ['user'=>$user]);
+        return view('homepage.show', ['user' => $user]);
     }
 
     /**
@@ -73,9 +73,9 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        $user = User::where('id',$id)->first();
+        $user = User::where('id', $id)->first();
 
-        return view('homepage.edit', ['user'=>$user]);
+        return view('homepage.edit', ['user' => $user]);
     }
 
     /**

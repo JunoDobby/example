@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
                 'password' => bcrypt('adminadmin2'),
                 'created_at' => now(),
                 'updated_at' => now(),
-            ],[
+            ], [
                 'id' => 3,
                 'name' => 'admin3',
                 'email' => 'admin3@jitcom.net',
