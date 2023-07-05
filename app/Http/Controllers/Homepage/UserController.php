@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest\StoreRequest;
 use App\Http\Requests\UserRequest\UpdateRequest;
 use App\Models\User;
-use GuzzleHttp\Promise\Create;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 
 class UserController extends Controller
 {
@@ -31,6 +33,9 @@ class UserController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param StoreRequest $request
+     * @return RedirectResponse
      */
     public function store(StoreRequest $request)
     {
@@ -49,6 +54,9 @@ class UserController extends Controller
 
     /**
      * Display the specified resource.
+     *
+     * @param string $id
+     * @return Application|Factory|View|\Illuminate\Foundation\Application
      */
     public function show(string $id)
     {
@@ -59,6 +67,9 @@ class UserController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     *
+     * @param string $id
+     * @return Application|Factory|View|\Illuminate\Foundation\Application
      */
     public function edit(string $id)
     {
@@ -69,6 +80,10 @@ class UserController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param UpdateRequest $request
+     * @param string $id
+     * @return RedirectResponse
      */
     public function update(UpdateRequest $request, string $id)
     {
@@ -85,6 +100,8 @@ class UserController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param string $id
      */
     public function destroy(string $id)
     {
@@ -93,6 +110,9 @@ class UserController extends Controller
 
     /**
      * restore the specified resource from storage.
+     *
+     * @param string $id
+     * @return RedirectResponse
      */
     public function delete(string $id)
     {
@@ -103,6 +123,9 @@ class UserController extends Controller
 
     /**
      * restore the specified resource from storage.
+     *
+     * @param string $id
+     * @return RedirectResponse
      */
     public function restore(string $id)
     {
