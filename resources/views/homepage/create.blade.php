@@ -11,7 +11,7 @@
         @if($errors->any())
             <ul class="alert alert-danger" style="list-style-type: none">
                 @foreach($errors->all() as $error)
-                    <li>{!! $error !!}</li>
+                    <li>{{ $error }}</li>
                 @endforeach
             </ul>
         @endif
@@ -31,7 +31,6 @@
         </label>
         <br/>
         <input type="submit" class="btn btn-primary">
-
     </form>
     <a type="button" class="btn btn-primary" href="{{route('home')}}">돌아가기</a>
     </body>
