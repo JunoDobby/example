@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Homepage;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\HomeController;
 use App\Http\Requests\UserRequest\StoreRequest;
 use App\Http\Requests\UserRequest\UpdateRequest;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 
-class UserController extends Controller
+class UserController extends HomeController
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +20,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::withTrashed()->get();
-        return view('homepage.index', ['users' => $users]);
+        return view('admin.index', ['users' => $users]);
     }
 
     /**
@@ -28,7 +28,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('homepage.create');
+        return view('admin.create');
     }
 
     /**
@@ -49,7 +49,7 @@ class UserController extends Controller
             'created_at' => now(),
         ]);
 
-        return redirect()->route('home');
+        return redirect()->route('admin.user');
     }
 
     /**
@@ -62,7 +62,7 @@ class UserController extends Controller
     {
         $user = User::where('id', $id)->first();
 
-        return view('homepage.show', ['user' => $user]);
+        return view('admin.show', ['user' => $user]);
     }
 
     /**
@@ -75,7 +75,7 @@ class UserController extends Controller
     {
         $user = User::where('id', $id)->first();
 
-        return view('homepage.edit', ['user' => $user]);
+        return view('admin.edit', ['user' => $user]);
     }
 
     /**
@@ -95,7 +95,7 @@ class UserController extends Controller
             'updated_at' => now(),
         ]);
 
-        return redirect()->route('home');
+        return redirect()->route('admin.user');
     }
 
     /**
@@ -118,7 +118,7 @@ class UserController extends Controller
     {
         User::find($id)->delete();
 
-        return redirect()->route('home');
+        return redirect()->route('admin.user');
     }
 
     /**
@@ -131,6 +131,6 @@ class UserController extends Controller
     {
         User::onlyTrashed()->find($id)->restore();
 
-        return redirect()->route('home');
+        return redirect()->route('admin.user');
     }
 }
