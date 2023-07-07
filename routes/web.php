@@ -27,3 +27,7 @@ Route::post('/store', [UserController::class, 'store'])->name('store');
 Route::post('/update/{id}', [UserController::class, 'update'])->name('update');
 Route::get('/delete/{id}', [UserController::class, 'delete'])->name('delete');
 Route::get('/restore/{id}', [UserController::class, 'restore'])->name('restore');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
