@@ -44,7 +44,7 @@ class UserController extends HomeController
         User::insert([
             'name' => $user['name'],
             'email' => $user['email'],
-            'password' => $user['password'],
+            'password' => bcrypt($user['password']),
             'updated_at' => now(),
             'created_at' => now(),
         ]);
