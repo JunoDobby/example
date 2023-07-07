@@ -89,7 +89,7 @@ class UserController extends Controller
     {
         $user = $request->all();
 
-        DB::table('users')->where('id', $id)->update([
+       User::where('id', $id)->update([
             'name' => $user['name'],
             'email' => $user['email'],
             'updated_at' => now(),
