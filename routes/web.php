@@ -19,16 +19,28 @@ Route::get('/docs', function () {
     return view('welcome');
 });
 
-Route::group(['namespace'=>'App\Http\Controllers\Admin', 'prefix'=>'admin', 'as'=>'admin.'], function() {
-    Route::get('/', [UserController::class, 'index'])->name('user');
-    Route::get('/create', [UserController::class, 'create'])->name('create');
-    Route::post('/create', [UserController::class, 'create'])->name('create');
-    Route::get('/edit/{id}', [UserController::class, 'edit'])->name('edit');
-    Route::get('/show/{id}', [UserController::class, 'show'])->name('show');
-    Route::post('/store', [UserController::class, 'store'])->name('store');
+Route::group(['middleware'=>['auth'] , 'namespace'=>'App\Http\Controllers\Admin', 'prefix'=>'admin', 'as'=>'admin.'], function() {
+    Route::group(['middleware' => ['can:admin']], function () {
+        Route::get('/create', [UserController::class, 'create'])->name('create');
+        Route::post('/create', [UserController::class, 'create'])->name('create');
+        Route::get('/delete/{id}', [UserController::class, 'delete'])->name('delete');
+        Route::get('/restore/{id}', [UserController::class, 'restore'])->name('restore');
+    });
+
+    Route::group(['middleware' => ['can:manager']], function () {
+        Route::get('/show/{id}', [UserController::class, 'show'])->name('show');
+    });
+
+    Route::group(['middleware' => ['can:developer']], function () {
+        Route::get('/edit/{id}', [UserController::class, 'edit'])->name('edit');
+        Route::post('/store', [UserController::class, 'store'])->name('store');
+    });
+
+    Route::group(['middleware' => ['can:user']], function () {
+        Route::get('/', [UserController::class, 'index'])->name('user');
+    });
+
     Route::post('/update/{id}', [UserController::class, 'update'])->name('update');
-    Route::get('/delete/{id}', [UserController::class, 'delete'])->name('delete');
-    Route::get('/restore/{id}', [UserController::class, 'restore'])->name('restore');
 });
 
 Auth::routes();

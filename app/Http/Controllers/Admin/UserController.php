@@ -7,12 +7,14 @@ use App\Http\Controllers\HomeController;
 use App\Http\Requests\UserRequest\StoreRequest;
 use App\Http\Requests\UserRequest\UpdateRequest;
 use App\Models\User;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Log;
 
-class UserController extends HomeController
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
